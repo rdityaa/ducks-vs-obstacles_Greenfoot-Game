@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class MyWorld extends World
+public class Level2 extends World
 {
 
     private Score score;
@@ -14,7 +14,7 @@ public class MyWorld extends World
      * Constructor for objects of class MyWorld.
      * 
      */
-    public MyWorld()
+    public Level2()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1000, 600, 1); 
@@ -173,9 +173,26 @@ public class MyWorld extends World
         paku paku4 = new paku();
         addObject(paku4,778,111);
         musuh4.setLocation(689,516);
+        door door = new door();
+        addObject(door,958,26);
+        door.setLocation(961,48);
+        paku4.setLocation(788,162);
+        platform5.setLocation(836,106);
+        paku4.setLocation(828,115);
+        platform5.setLocation(761,139);
+        paku4.setLocation(749,139);
+        platform5.setLocation(787,201);
+        platform5.setLocation(845,112);
+        paku4.setLocation(775,135);
+        door.setLocation(963,74);
+        paku4.setLocation(768,151);
+        paku4.setLocation(835,253);
+        platform5.setLocation(851,135);
+        paku4.setLocation(753,153);
+        paku4.setLocation(759,171);
     }
     
-    public void increaseScore(int value) {
+    public void tambahSkor(int value) {
         if (score != null) { // Periksa apakah score tidak null
             score.addScore(value); // Tambahkan skor
         }

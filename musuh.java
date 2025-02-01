@@ -49,14 +49,15 @@ public class musuh extends Actor
         }
 
         if (health <= 0) {
-            // Tambahkan skor sebelum menghapus musuh
-            MyWorld world = (MyWorld) getWorld(); // Ambil referensi ke dunia
-            if (world != null) {
-                world.increaseScore(5); // Tambah skor sebesar 5
-            }
+        // Tambahkan skor sebelum menghapus musuh
+        World world = getWorld(); // Ambil referensi ke dunia saat ini
+        if (world instanceof Level2) { // Pastikan dunia adalah Level2
+        Level2 level2World = (Level2) world; // Casting ke Level2
+        level2World.tambahSkor(5); // Menambah skor
+        }
 
-            // Hapus musuh dari dunia
-            getWorld().removeObject(this);
+        // Hapus musuh dari dunia
+        getWorld().removeObject(this);
         }
     }
 }
