@@ -18,14 +18,15 @@ public class player extends Actor
     private GreenfootImage[] idleFrames = new GreenfootImage[2];
     private GreenfootImage[] runFrames = new GreenfootImage[6];
     private GreenfootImage[] jumpFrames = new GreenfootImage[4];
-    private int currentFrameIdle = 0; // Untuk animasi idle
-    private int currentFrameRun = 0;  // Untuk animasi run
-    private int currentFrameJump = 0; // Untuk animasi jump
-    private int currentFrameMundur = 0; // Untuk animasi mundur
+    private int currentFrameIdle = 0;
+    private int currentFrameRun = 0;
+    private int currentFrameJump = 0;
+    private int currentFrameMundur = 0;
     private int animationSpeed = 10;
     private int counter = 0;
+    private Joystick joystick;
 
-    public player()
+    public player(Joystick joystick)
     {
         // Setingan Gambar Idle
         idleFrames[0] = new GreenfootImage("idle_1.png");
@@ -47,6 +48,9 @@ public class player extends Actor
 
         // Set gambar awal (Idle frame pertama)
         setImage(idleFrames[0]);
+        
+        // Inisialisasi Joystick
+        this.joystick = joystick;
     }
 
     public void act()
@@ -63,9 +67,41 @@ public class player extends Actor
         animasiRun();
         animasiJump();
         animasiMundur();
+        kontrolJoystick();
     }
 
-    // Animasi Idle yang berjalan terus
+    private void kontrolJoystick() {
+    int offsetX = joystick.getOffsetX();
+    int offsetY = joystick.getOffsetY();
+
+    if (offsetX > 10) { // Kalau radius lebih dari 10 Kontrol ke kanan
+        setLocation(getX() + speed, getY());
+    if (counter % animationSpeed == 0) {
+            currentFrameRun = (currentFrameRun + 1) % runFrames.length;
+            setImage(runFrames[currentFrameRun]);
+        }
+    } else if (offsetX < -10) { // Kalau radius kurang dari -10 Kontrol ke kiri
+        setLocation(getX() - speed, getY());
+    if (counter % animationSpeed == 0) {
+            currentFrameMundur = (currentFrameMundur + 1) % runFrames.length;
+            setImage(runFrames[currentFrameMundur]);
+        }
+    }
+
+    if (offsetY < -20 && isTouching(lantai.class)) { // Kalau Radius kurang dari 20 dan kena class lantai
+     vSpeed = -14; 
+    if (Math.abs(offsetX) < 10) { 
+            setLocation(getX(), getY() + vSpeed); // Lompat
+        } 
+        setImage(jumpFrames[0]); // Animasi awal lompat
+    }
+
+    if (offsetY > 20) { // Arah Joystick ke bawah, maka akan cepat turun
+        vSpeed = vSpeed + 2;
+    }
+}
+    
+   /// Animasi Idle
     public void animasiIdle()
     {
         if (counter % animationSpeed == 0)  // Ganti gambar setiap beberapa frame
@@ -75,7 +111,7 @@ public class player extends Actor
         }
     }
 
-    // Animasi Run
+    // Animasi Lari
     public void animasiRun()
     {
         if(Greenfoot.isKeyDown("d"))
@@ -103,7 +139,7 @@ public class player extends Actor
         }
     }
 
-    // Animasi Jump
+    // Animasi Lompat
     public void animasiJump()
     {
         if(Greenfoot.isKeyDown("space"))
@@ -116,12 +152,14 @@ public class player extends Actor
             vSpeed = -12;
         }
     }
-
+    
+    // Kondisi Jatuh
     public void fall()
     {   
         setLocation(getX(), getY() + vSpeed);
     }
 
+    // Kondisi Mendarat
     public void landing()
     {
         if(isTouching(lantai.class))
@@ -130,6 +168,7 @@ public class player extends Actor
         }
     }
 
+    // Mengecek kondisi Jatuh
     public void checkFalling()
     {
         if(!isTouching(lantai.class))
@@ -140,6 +179,7 @@ public class player extends Actor
             vSpeed = -1;
     }
 
+    // Method untuk nembak
     public void nembak()
     {
         if(Greenfoot.mouseClicked(null))
@@ -150,7 +190,7 @@ public class player extends Actor
         }
     }
 
-    // Method for health and game over
+    // Method untuk cek Healt dan Mati
     public void Mati() {
         // Cek apakah pemain menyentuh musuh, paku, atau pakuatas
         if (isTouching(musuh.class) && !kenaMusuh) {
@@ -172,7 +212,7 @@ public class player extends Actor
         }
     }
 
-    // Game Win
+    // Kondisi Menang
     public void win()
     {   
         if (isTouching(door.class))
@@ -180,12 +220,14 @@ public class player extends Actor
             gameWin();
         }
     }
-    // Game Over
+    
+    // Kondisi Kalah
     private void gameOver() {
         Greenfoot.setWorld(new GameOver()); // Ngubah ke Game Over
         Greenfoot.delay(10); 
     }
-    // Next Level
+    
+    // Naek level
     public void next()
     {   
         if (isTouching(pintu.class))
@@ -193,15 +235,16 @@ public class player extends Actor
             Lanjut();
         }
     }
-
+    
+    // Mengarahkan ke World Gamewin
     private void gameWin() {
         Greenfoot.setWorld(new GameWin()); // Buat ngubah ke GameWin
         Greenfoot.delay(10); 
     }
 
+    // Mengarahkan ke Level2
     private void Lanjut() {
         Greenfoot.setWorld(new Level2()); // Buat ngubah ke Level 2
         Greenfoot.delay(10); 
     }
 }
-

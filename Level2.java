@@ -28,9 +28,10 @@ public class Level2 extends World
      */
     private void prepare()
     {
-
-        player player = new player();
-        addObject(player,27,509);
+        Joystick joystick = new Joystick();
+        addObject(joystick, 100, 500);
+        player player = new player(joystick);
+        addObject(player, 50, 517);
         musuh musuh = new musuh();
         addObject(musuh,353,316);
         musuh musuh2 = new musuh();
@@ -49,8 +50,6 @@ public class Level2 extends World
         score = new Score();
         addObject(score,32,26);
         score.setLocation(78,20);
-        player.setLocation(21,508);
-        player.setLocation(34,521);
         musuh4.setLocation(583,518);
         platform2.setLocation(459,353);
         platform2.setLocation(447,342);

@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=JoystickKnob
+comment1.params=joystick
+comment1.target=JoystickKnob(Joystick)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=int\ getOffsetX()
+comment4.params=
+comment4.target=int\ getOffsetY()
+numComments=5
