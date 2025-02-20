@@ -1,19 +1,26 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-public class Level1 extends World
-{
-    public Level1()
-    {    
+public class Level1 extends World {
+    private HealthBar healthBar;
+    private player pemain; // Simpan referensi player
+
+    public Level1() {    
         super(1000, 600, 1); 
         prepare();
     }
-    
-    private void prepare()
-    {
+
+    public void act() {
+        // Update HealthBar setiap frame berdasarkan health pemain
+        healthBar.updateHealth(pemain.getHealth());
+    }
+
+    private void prepare() {
         Joystick joystick = new Joystick();
         addObject(joystick, 100, 500);
-        player player = new player(joystick);
-        addObject(player, 28, 517);
+        pemain = new player(joystick);  
+        addObject(pemain, 28, 517);
+        healthBar = new HealthBar(pemain.getHealth()); 
+        addObject(healthBar, 100, 50);
         dirt dirt = new dirt(1000, 60);
         addObject(dirt, 499, 568);
         paku paku = new paku();

@@ -8,8 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Level2 extends World
 {
-
     private Score score;
+    private HealthBar healthBar;
+    private player pemain;
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -20,6 +22,11 @@ public class Level2 extends World
         super(1000, 600, 1); 
         prepare();
         setBackground("background.png");
+    }
+    
+    public void act()
+    {
+        healthBar.updateHealth(pemain.getHealth());
     }
     
     /**
@@ -46,7 +53,6 @@ public class Level2 extends World
         addObject(platform2,461,345);
         platform platform3 = new platform(300, 20);
         addObject(platform3,873,427);
-
         score = new Score();
         addObject(score,32,26);
         score.setLocation(78,20);
@@ -60,7 +66,6 @@ public class Level2 extends World
         platform2.setLocation(479,349);
         musuh.setLocation(596,306);
         musuh.setLocation(602,318);
-
         musuh.setLocation(620,235);
         platform2.setLocation(577,258);
         platform2.setLocation(509,269);
@@ -189,6 +194,10 @@ public class Level2 extends World
         platform5.setLocation(851,135);
         paku4.setLocation(753,153);
         paku4.setLocation(759,171);
+        pemain = new player(joystick);
+        addObject(pemain, 50, 517);
+        healthBar = new HealthBar(pemain.getHealth()); 
+        addObject(healthBar, 52, 50);
     }
     
     public void tambahSkor(int value) {

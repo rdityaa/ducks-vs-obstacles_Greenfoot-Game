@@ -247,4 +247,9 @@ public class player extends Actor
         Greenfoot.setWorld(new Level2()); // Buat ngubah ke Level 2
         Greenfoot.delay(10); 
     }
+    
+    public int getHealth() 
+    {
+    return health;
+    }      
 }
