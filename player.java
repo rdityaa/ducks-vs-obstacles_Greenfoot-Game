@@ -13,7 +13,7 @@ public class player extends Actor
     int vSpeed = 0;
     int accel = 0;
     int speed = 5;
-    int health = 3;
+    int health = 5;
     boolean kenaMusuh;
     private GreenfootImage[] idleFrames = new GreenfootImage[2];
     private GreenfootImage[] runFrames = new GreenfootImage[6];

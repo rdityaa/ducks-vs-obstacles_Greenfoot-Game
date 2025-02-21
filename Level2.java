@@ -198,6 +198,15 @@ public class Level2 extends World
         addObject(pemain, 50, 517);
         healthBar = new HealthBar(pemain.getHealth()); 
         addObject(healthBar, 52, 50);
+        paku.setLocation(135,426);
+        paku.setLocation(145,416);
+        platform.setLocation(176,403);
+        platform.setLocation(180,403);
+        platform.setLocation(143,400);
+        musuh2.setLocation(267,373);
+        paku.setLocation(171,414);
+        paku.setLocation(163,414);
+        removeObject(paku);
     }
     
     public void tambahSkor(int value) {

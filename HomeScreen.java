@@ -19,6 +19,6 @@ public class HomeScreen extends World
         super(1000, 600, 1);
         addObject(new StartButton(), getWidth() / 2, 250);
         addObject(new TutorialButton(), getWidth() / 2, 300);
-        addObject(new CreditButton(), getWidth() / 2, 350);
+        addObject(new AboutButton(), getWidth() / 2, 350);
     }
 }
